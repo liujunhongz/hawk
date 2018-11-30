@@ -1,0 +1,73 @@
+apply plugin: 'maven'
+apply plugin: 'com.jfrog.bintray'
+
+
+//生成文档注释
+task javadocs(type: Javadoc) {
+  failOnError = false
+  source = android.sourceSets.main.java.srcDirs
+  ext.androidJar = "${android.sdkDirectory}/platforms/${android.compileSdkVersion}/android.jar"
+  classpath += files(ext.androidJar)
+}
+//将文档打包成jar
+task android_javadocsJar(type: Jar, dependsOn: javadocs) {
+  classifier = 'javadoc'
+  from javadocs.destinationDir
+}
+//将源码打包
+task android_sourcesJar(type: Jar) {
+  classifier = 'sources'
+  from android.sourceSets.main.java.srcDirs
+}
+//包含文档和源码的aar
+artifacts {
+  archives android_sourcesJar
+  archives android_javadocsJar
+}
+
+
+def getBintrayUser() {
+  return hasProperty('BINTRAY_USER') ? BINTRAY_USER :
+      readPropertyFromLocalProperties('BINTRAY_USER')
+}
+
+def getBintrayKey() {
+  return hasProperty('BINTRAY_APIKEY') ? BINTRAY_APIKEY :
+      readPropertyFromLocalProperties('BINTRAY_APIKEY')
+}
+
+def readPropertyFromLocalProperties(String key) {
+  Properties properties = new Properties()
+  try {
+    properties.load(project.rootProject.file('local.properties').newDataInputStream())
+  } catch (Exception ignore) {
+  }
+  return properties.getProperty(key)
+}
+
+bintray {
+  user = getBintrayUser()
+  key = getBintrayKey()
+  configurations = ['archives']
+
+  pkg {
+    repo = 'maven'
+    userOrg = "liujunhongz"
+    name = "${GROUP}:${POM_ARTIFACT_ID}"
+    desc = POM_DESCRIPTION
+    licenses = ["Apache-2.0"]
+    vcsUrl = POM_SCM_URL
+    websiteUrl = POM_URL
+    publicDownloadNumbers = true
+    publish = true
+    dryRun = false
+  }
+}
+
+
+
+task buildAndPublishRepo(dependsOn: ['build', 'uploadArchives']) {
+  doLast {
+    println "*published to repo: ${project.group}:${project.name}:${project.version}"
+  }
+}

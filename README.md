@@ -10,7 +10,7 @@ This version has no backward compatibility with Hawk 1+ versions. If you still w
 
 ### Download
 ```groovy
-compile "com.orhanobut:hawk:2.0.1"
+implementation "top.bingoz:hawk:2.1.0"
 ```
 
 ### Initialize

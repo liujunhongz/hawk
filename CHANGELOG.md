@@ -1,16 +1,15 @@
 # CHANGELOG
 
-### 2.0.1
-- Conceal is updated, with the new version the size is way smaller
+### 2.1.1
+- 集成Moshi
+- 使用方式不再主动依赖Gson
+```gradle
+//如需使用Gson
+implementation 'com.google.code.gson:gson:2.8.2'
+//如需使用Moshi
+implementation "com.squareup.moshi:moshi:1.8.0"
+```
 
-### 2.0.0-Alpha
-- Rx support is removed
-- Chain option is removed
-- Facebook conceal is added as crypto provider
-- Async operations are removed
-- EncryptionMethod is removed, as default it's encrypted and fallback to no encryption mode if the crypto is not available
-- NoEncryption option is available through setEncryption out of box
-- LogLevel is removed. All log messages are delegated to LogInterceptor, thus you can intercept and print it. Otherwise all log messages will be ignored.
-- All abstraction layers are pluggable. (Converter, Parser, Encryption, Serializer, Storage)
-- Sqlite option is removed.
-- Init is super fast now, no need to async operation.
+### 2.1.0
+- 各个接口类public
+- SharedPreferences使用apply()

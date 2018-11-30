@@ -18,18 +18,11 @@ build/
 *.iml
 *.ipr
 *.iws
-**/.idea/shelf
-**/.idea/workspace.xml
-**/.idea/tasks.xml
-**/.idea/datasources.xml
-**/.idea/dataSources.ids
-**/.idea/gradle.xml
-**/.idea/misc.xml
-**/.idea/modules.xml
-**/.idea/libraries
-**/.idea/dictionaries
-**/.idea/runConfigurations.xml
-**/.idea/caches
+**/.idea/
 
 # layout inspector view captures
 captures
+
+.github/
+
+*.yml

@@ -1,0 +1,15 @@
+task sourcesJar(type: Jar) {
+    from android.sourceSets.main.java.srcDirs
+    classifier = 'sources'
+}
+
+task javadocJar(type: Jar) {
+    classifier = 'javadoc'
+    from android.sourceSets.main.java.source
+}
+
+artifacts {
+    archives javadocJar
+    archives sourcesJar
+}
+

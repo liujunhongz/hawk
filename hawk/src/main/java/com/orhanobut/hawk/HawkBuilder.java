@@ -2,7 +2,7 @@ package com.orhanobut.hawk;
 
 import android.content.Context;
 
-import com.google.gson.Gson;
+import com.squareup.moshi.Moshi;
 
 public class HawkBuilder {
 
@@ -83,7 +83,7 @@ public class HawkBuilder {
 
   Parser getParser() {
     if (parser == null) {
-      parser = new GsonParser(new Gson());
+      parser = new MoshiParser(new Moshi.Builder().build());
     }
     return parser;
   }

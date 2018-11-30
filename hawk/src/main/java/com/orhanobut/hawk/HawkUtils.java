@@ -1,6 +1,6 @@
 package com.orhanobut.hawk;
 
-final class HawkUtils {
+public final class HawkUtils {
 
   private HawkUtils() {
     //no instance

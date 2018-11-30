@@ -1,38 +1,50 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 
+apply from: 'archives.gradle'
+apply from: 'bintray.gradle'
+
 android {
-  compileSdkVersion rootProject.ext.compileSdkVersion
-  buildToolsVersion rootProject.ext.buildToolsVersion
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
 
-  defaultConfig {
-    minSdkVersion rootProject.ext.minSdkVersion
-    consumerProguardFiles 'proguard-rules.pro'
-    testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-  }
+    defaultConfig {
+        minSdkVersion rootProject.ext.minSdkVersion
+        consumerProguardFiles 'proguard-rules.pro'
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
 
-  lintOptions {
-    textReport true
-    textOutput 'stdout'
-  }
+    lintOptions {
+        textReport true
+        textOutput 'stdout'
+    }
+    libraryVariants.all { variant ->
+        variant.outputs.all {
+            if (variant.buildType.isDebuggable()) {
+                outputFileName = "hawk_debug.aar"
+            } else {
+//                outputFileName = "aesjni_v${variant.versionName}_${variant.flavorName}.apk"
+                outputFileName = "hawk-${MODULE_VERSION}.aar"
+            }
+        }
+    }
 }
 
 dependencies {
-  api deps.conceal
-  implementation deps.gson
+    api deps.conceal
+    compileOnly deps.gson
+    compileOnly deps.moshi
 
-  testImplementation deps.junit
-  testImplementation deps.truth
-  testImplementation deps.robolectric
-  testImplementation deps.mockito
-  testImplementation deps.kotlin
+    testImplementation deps.junit
+    testImplementation deps.truth
+    testImplementation deps.robolectric
+    testImplementation deps.mockito
+    testImplementation deps.kotlin
 
-  androidTestImplementation deps.junit
-  androidTestImplementation deps.truth
-  androidTestImplementation deps.espressoRunner
-  androidTestImplementation deps.espressoRules
-  androidTestImplementation deps.kotlin
+    androidTestImplementation deps.junit
+    androidTestImplementation deps.truth
+    androidTestImplementation deps.espressoRunner
+    androidTestImplementation deps.espressoRules
+    androidTestImplementation deps.kotlin
 
 }
-
-apply from: rootProject.file('gradle/maven_push.gradle')

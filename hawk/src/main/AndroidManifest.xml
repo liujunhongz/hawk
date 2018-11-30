@@ -1,1 +1,4 @@
-<manifest package="com.orhanobut.hawk"/>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.orhanobut.hawk"
+    android:versionCode="1"
+    android:versionName="${MODULE_VERSION}" />

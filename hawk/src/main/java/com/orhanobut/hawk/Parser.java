@@ -9,7 +9,7 @@ import java.lang.reflect.Type;
  *
  * <p>Use custom implementation if built-in implementation is not enough.</p>
  *
- * @see GsonParser
+ * @see MoshiParser
  */
 public interface Parser {
 

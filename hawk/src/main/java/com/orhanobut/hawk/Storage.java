@@ -16,9 +16,8 @@ public interface Storage {
    * @param value the value of entry
    * @param <T>   type of value of entry
    *
-   * @return true if entry added successfully, otherwise false
    */
-  <T> boolean put(String key, T value);
+  <T> void put(String key, T value);
 
   /**
    * Get single entry from storage
@@ -35,16 +34,14 @@ public interface Storage {
    *
    * @param key the name of entry to delete
    *
-   * @return true if removal is successful, otherwise false
    */
-  boolean delete(String key);
+  void delete(String key);
 
   /**
    * Remove all entries in the storage
    *
-   * @return true if clearance if successful, otherwise false
    */
-  boolean deleteAll();
+  void deleteAll();
 
   /**
    * Retrieve count of entries in the storage
